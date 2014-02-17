@@ -1,5 +1,5 @@
 {
-    "name": "league-of-legends-api/api-core",
+    "name": "league-of-legends-api/core",
     "description": "Base PHP wrapper for RiotGames' LoL API",
     "license": "MIT",
     "authors": [
