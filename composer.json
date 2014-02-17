@@ -1,0 +1,24 @@
+{
+    "name": "league-of-legends-api/api-core",
+    "description": "Base PHP wrapper for RiotGames' LoL API",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Ran",
+            "email": "heilong24@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "league-of-legends-api/constants": "dev-master",
+        "nategood/httpful": "0.2.11"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.30"
+    },
+    "autoload": {
+        "psr-0": {
+            "Riot": "src"
+        }
+    }
+}
