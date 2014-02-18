@@ -9,6 +9,9 @@ abstract class Api {
 
   const DEFAULT_HOST = 'prod.api.pvp.net';
 
+  /**
+   * @var string
+   */
   protected $uriTemplate = '/api/lol/{region}/{version}/{endpoint}';
 
   /**
@@ -45,7 +48,7 @@ abstract class Api {
    * @throws \InvalidArgumentException If no API key given or if $this->requiresRegion && no region given
    * @throws \LogicException if overridden availableRegions() returns an array of values that are not a subset of $this->regions
    */
-  public function __construct( $apiKey, $region = '', $host = '' ) {
+  public function __construct( $apiKey, $region = 'na', $host = '' ) {
 
     if ( empty( $apiKey ) ) {
       throw new \InvalidArgumentException( 'No api key given' );
@@ -54,7 +57,7 @@ abstract class Api {
     $this->apiKey = $apiKey;
 
     if ( $this->requiresRegion && !in_array( $region, $this->availableRegions() ) ) {
-      throw new \InvalidArgumentException( 'Invalid region given' );
+      throw new \InvalidArgumentException( 'Invalid region given, or default value of "na" is incompatible.' );
     }
 
     $this->region = $region;
@@ -91,6 +94,13 @@ abstract class Api {
 
   } // getVersion
 
+  /**
+   * @todo: this is garbage, clean it.
+   * @param array $params
+   * @param string $functionEnd
+   * @param bool $https
+   * @return string
+   */
   protected function buildEndpointUri( array $params = array(), $functionEnd = '', $https = true ) {
 
     $params    = array_merge( $this->defaultParams, $params );
@@ -123,6 +133,11 @@ abstract class Api {
 
   } // getDefaultParams
 
+  /**
+   * @param string $uri
+   * @param string $method Httpful\Request static fx
+   * @return Httpful\Response
+   */
   protected function request( $uri, $method = 'get' ) {
 
     $response = Request::{$method}( $uri )->send();
